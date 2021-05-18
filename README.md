@@ -1,30 +1,30 @@
 # Starve_Free_Reader_writer_problem
-You can find the complete design detail below.
-## Starve Free Soltuion
-The classical solution of the problem results in starvation of either reader or writer. In this solution,I have tried to propose a starve free solution.  While proposing the solution only one assumptionis made i.e.  Semaphore preserves the first in first out(FIFO) order when locking and releasing theprocesses( Semaphore uses a FIFO queue to maintain the list of blocked processes)
+Here is the find complete design detail that someone can analyse.
+## Soltuion (Starve Free)
+The traditional solution to the problem results in the starvation of either the reader or the writer. In this solution, I attempted to suggest a starvation-free solution. Just one assumption is made when proposing the solution: Semaphore maintains the first in first out (FIFO) order while locking and releasing processes.( Semaphore uses a FIFO queue to maintain the list of blocked processes)
 ### Semaphore
 Designing a Semaphore with FIRST-IN-FIRST-OUT(FIFO) queue to maintain the list of blocked processes
 ```cpp
 // The code for a FIFO semaphore.
 struct Semaphore{
-  int value = 1;
-  FIFO_Queue* Q = new FIFO_Queue();
+  int val = 1;
+  FIFO_Queue* Qf = new FIFO_Queue();
 }
     
-void wait(Semaphore *S,int* process_id){
-  S->value--;
-  if(S->value < 0){
-  S->Q->push(process_id);
+void wait(Semaphore *Sm,int* process_id){
+  Sm->val--;
+  if(Sm->val < 0){
+  Sm->Qf->push(process_id);
   block(); //this function will block the process by using system call and will transfer it to the waiting queue
            //the process will remain in the waiting queue till it is waken up by the wakeup() system calls
            //this is a type of non busy waiting
   }
 }
     
-void signal(Semaphore *S){
-  S->value++;
-  if(S->value <= 0){
-  int* PID = S->Q->pop();
+void signal(Semaphore *Sm){
+  Sm->val++;
+  if(Sm->val <= 0){
+  int* PID = Sm->Qf->pop();
   wakeup(PID); //this function will wakeup the process with the given pid using system calls
   }
 }
@@ -38,18 +38,18 @@ struct FIFO_Queue{
             return -1;            // Error : underflow.
         }
         else{
-            int* val = front->value;
+            int* value = front->val;
             front = front->next;
             if(front == NULL)
             {
                 rear = NULL;
             }
-            return val;
+            return value;
         }
     }
-    void* push(int* val){
+    void* push(int* value){
         ProcessBlock* blk = new ProcessBlock();
-        blk->value = val;
+        blk->val = value;
         if(rear == NULL){
             front = rear = n;
             
