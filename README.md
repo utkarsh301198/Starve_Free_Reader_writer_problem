@@ -69,7 +69,7 @@ struct ProcessBlock{
 }
 ```
 ### Intialization
-In this solution 3 semaphores are used. turn semaphore is used to specific whose chance is it nextto enter the critical section.  The process holding this semaphore gets the next chance to enter thecritical section.rwtsemaphore is the semaphore required to access the critical section.rmutexsemaphore is required to change thereadcountvariable which maintain the number of activereader.
+In this solution we have used 3 semaphores. 'turn' semaphore is used to specific whose chance is it next to enter the critical section.  The process holding this semaphore gets the next chance to enter the critical section.'rwt' semaphore is the semaphore which is required to access the critical section.'r_mutexs' semaphore is required to change the 'read_count' variable which maintain the number of active readers.
 ```cpp
 int read_count = 0;                      //Integer representing the number of reader executing critical section
 Semaphore turn = new Semaphore();        //seamphore representing the order in which the writer and 
