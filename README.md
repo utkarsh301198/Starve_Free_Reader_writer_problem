@@ -48,15 +48,15 @@ struct FIFO_Queue{
         }
     }
     void* push(int* value){
-        ProcessBlock* blk = new ProcessBlock();
-        blk->val = value;
+        ProcessBlock* blck = new ProcessBlock();
+        blck->val = value;
         if(rear == NULL){
             front = rear = n;
             
         }
         else{
-            rear->next = blk;
-            rear = blk;
+            rear->next = blck;
+            rear = blck;
         }
     }
     
