@@ -130,7 +130,7 @@ If we talk about rwt semaphore, it ensures that only a single writer can access 
 ### Progress Requirement
 The code is structured so that there are no chances for deadlock and also the readers and writers takes a finite amount of time to pass through the critical section and also at the end of each reader writer code they release the semaphore for other processes to enter into critical section.
 
-##Conclusion 
+## Conclusion 
 None of these ideas are feasible, and our approach addresses all of their shortcomings. However, there are recent solutions to a broader issue, the community mutual exclusion problem. Our solution is a more straightforward solution to a more straightforward problem (the readers-writers problem versus the group mutual exclusion problem).
 
 ## References
